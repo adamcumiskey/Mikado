@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16D12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="Mikado" customModuleProvider="target">
+            <connections>
+                <outlet property="colorPicker" destination="kMI-JE-RbW" id="gLz-vc-xri"/>
+                <outlet property="view" destination="iN0-l3-epB" id="8nF-Lp-Uw4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XT7-ej-6a0">
+                    <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5Ul-nW-rSo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kMI-JE-RbW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-1" id="sZf-qB-5Q9"/>
+                                    <outlet property="delegate" destination="-1" id="262-y5-oQa"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kMI-JE-RbW" secondAttribute="trailing" id="69N-LX-sdy"/>
+                            <constraint firstItem="kMI-JE-RbW" firstAttribute="leading" secondItem="5Ul-nW-rSo" secondAttribute="leading" id="7XW-u4-xZE"/>
+                            <constraint firstAttribute="bottom" secondItem="kMI-JE-RbW" secondAttribute="bottom" id="Qgx-wk-cTa"/>
+                            <constraint firstItem="kMI-JE-RbW" firstAttribute="top" secondItem="5Ul-nW-rSo" secondAttribute="top" id="hXd-C5-h51"/>
+                        </constraints>
+                    </view>
+                    <vibrancyEffect>
+                        <blurEffect style="prominent"/>
+                    </vibrancyEffect>
+                </visualEffectView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="XT7-ej-6a0" secondAttribute="trailing" id="G3m-8Q-7iL"/>
+                <constraint firstAttribute="bottom" secondItem="XT7-ej-6a0" secondAttribute="bottom" id="Ts7-Dd-zcp"/>
+                <constraint firstItem="XT7-ej-6a0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wTX-Fr-kwv"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

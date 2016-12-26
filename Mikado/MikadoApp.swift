@@ -21,7 +21,8 @@ class MikadoApp {
     }
     
     func launch() {
-        let viewController = ViewController()
+        let database = UserDefaultsDB(userDefaults: MikadoApp.userDefaults)
+        let viewController = ViewController(database: database)
         let navigationViewController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()

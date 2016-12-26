@@ -16,9 +16,8 @@ class ViewController: UIViewController {
     
     var database: Database
     
-    init() {
-        // Create the database
-        database = UserDefaultsDB(userDefaults: MikadoApp.userDefaults)
+    init(database: Database) {
+        self.database = database
         
         super.init(nibName: "ViewController", bundle: nil)
     }

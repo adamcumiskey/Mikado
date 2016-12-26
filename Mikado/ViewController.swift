@@ -14,11 +14,11 @@ let defaultColorHex = "FFFFFF"
 class ViewController: UIViewController {
     @IBOutlet weak var colorPicker: UIPickerView!
     
-    var userDefaultsDB: UserDefaultsDB
+    var database: Database
     
     init() {
         // Create the database
-        userDefaultsDB = UserDefaultsDB(userDefaults: MikadoApp.userDefaults)
+        database = Database(userDefaults: MikadoApp.userDefaults)
         super.init(nibName: "ViewController", bundle: nil)
     }
     
@@ -55,13 +55,13 @@ class ViewController: UIViewController {
     ///
     var hexString: String? {
         get {
-            return userDefaultsDB[backgroundColorKey] as? String
+            return database[backgroundColorKey] as? String
         }
         set {
             guard let newHexString = newValue else { return }
             
             // Save the color to the database
-            userDefaultsDB[backgroundColorKey] = newHexString
+            database[backgroundColorKey] = newHexString
             
             // Update the UI
             UIView.animate(withDuration: 0.23) {

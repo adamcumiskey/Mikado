@@ -19,6 +19,9 @@ class ViewController: UIViewController {
     init() {
         // Create the database
         database = Database(userDefaults: MikadoApp.userDefaults)
+        // Configure to use the global store
+        database.userDefaults = MikadoApp.userDefaults
+        
         super.init(nibName: "ViewController", bundle: nil)
     }
     

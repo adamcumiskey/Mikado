@@ -9,7 +9,7 @@
 import UIKit
 
 let backgroundColorKey = "background_color"
-let defaultColorHex = "00B9F1"
+let defaultColorHex = "FFFFFF"
 
 class ViewController: UIViewController {
     @IBOutlet weak var colorPicker: UIPickerView!
@@ -29,8 +29,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Mikado Colors"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Random", style: .plain, target: self, action: #selector(random))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
-        
         
         // Create the database
         userDefaultsDB = UserDefaultsDB(userDefaults: MikadoApp.userDefaults)
@@ -46,6 +46,10 @@ class ViewController: UIViewController {
     
     func reset() {
         self.hexString = defaultColorHex
+    }
+    
+    func random() {
+        self.hexString = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) }).string
     }
 
     var hexString: String? {

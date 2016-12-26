@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Create the window and launch the app
         let window = UIWindow(frame: UIScreen.main.bounds)
+        let database = UserDefaultsDB(userDefaults: UserDefaults.standard)
         mikadoApp = MikadoApp(window: window)
-        mikadoApp.launch()
+        mikadoApp.launch(database: database)
         return true
     }
 }

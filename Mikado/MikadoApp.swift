@@ -20,8 +20,7 @@ class MikadoApp {
         MikadoApp.userDefaults = UserDefaults.standard
     }
     
-    func launch() {
-        let database = UserDefaultsDB(userDefaults: MikadoApp.userDefaults)
+    func launch(database: Database) {
         let viewController = ViewController(database: database)
         let navigationViewController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationViewController

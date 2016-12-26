@@ -9,7 +9,12 @@
 import Foundation
 
 
-class UserDefaultsDB {
+protocol Database {
+    subscript(key: String) -> Any? { get set }
+}
+
+
+class UserDefaultsDB: Database {
     fileprivate var userDefaults: UserDefaults
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults

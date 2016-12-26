@@ -21,21 +21,21 @@ class HexTests: XCTestCase {
         super.tearDown()
     }
     
-    func testZeroHexStringInitialization() {
+    func testMinHexStringInitialization() {
         let string = "00"
         let hex = Hex(string: string)
         XCTAssert(hex.string == string)
         XCTAssert(hex.bytes == [0])
     }
     
-    func testFFHexStringInitialization() {
+    func testMaxHexStringInitialization() {
         let string = "FF"
         let hex = Hex(string: string)
         XCTAssert(hex.string == string)
         XCTAssert(hex.bytes == [255])
     }
     
-    func testColorHexStringInitialization() {
+    func testMultiHexStringInitialization() {
         let string = "00b9f1"
         let hex = Hex(string: string)
         XCTAssert(hex.string == string)

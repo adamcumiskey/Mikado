@@ -10,17 +10,14 @@ import UIKit
 
 
 class MikadoApp {
-    static var userDefaults: UserDefaults!
-    
+    var database: Database
     var window: UIWindow
-    init(window: UIWindow) {
+    init(window: UIWindow, database: Database) {
         self.window = window
-        
-        // Use standard user defaults for storage
-        MikadoApp.userDefaults = UserDefaults.standard
+        self.database = database
     }
     
-    func launch(database: Database) {
+    func launch() {
         let viewController = ViewController(database: database)
         let navigationViewController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationViewController

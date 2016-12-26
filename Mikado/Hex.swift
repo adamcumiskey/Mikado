@@ -22,8 +22,8 @@ struct Hex {
         }
     }
     
-    init(byte: UInt8) {
-        self.bytes = [byte]
-        self.string = String(byte, radix: 16).padding(toLength: 2, withPad: "0", startingAt: 0)
+    init(bytes: [UInt8]) {
+        self.bytes = bytes
+        self.string = bytes.reduce("") { $0 + String($1, radix: 16).padding(toLength: 2, withPad: "0", startingAt: 0) }
     }
 }

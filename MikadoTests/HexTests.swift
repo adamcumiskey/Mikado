@@ -36,23 +36,30 @@ class HexTests: XCTestCase {
     }
     
     func testColorHexStringInitialization() {
-        let string = "00B9F1"
+        let string = "00b9f1"
         let hex = Hex(string: string)
         XCTAssert(hex.string == string)
         XCTAssert(hex.bytes == [0, 185, 241])
     }
     
-    func testZeroHexByteInitialization() {
-        let byte = UInt8(0)
-        let hex = Hex(byte: byte)
-        XCTAssert(hex.bytes == [0])
+    func testMinSingleByteInitialization() {
+        let bytes = [UInt8(0)]
+        let hex = Hex(bytes: bytes)
+        XCTAssert(hex.bytes == bytes)
         XCTAssert(hex.string == "00", "Actual value: \(hex.string)")
     }
     
-    func test255HexByteInitialization() {
-        let byte = UInt8(255)
-        let hex = Hex(byte: byte)
-        XCTAssert(hex.bytes == [255])
+    func testMaxSingleByteInitialization() {
+        let bytes = [UInt8(255)]
+        let hex = Hex(bytes: bytes)
+        XCTAssert(hex.bytes == bytes)
         XCTAssert(hex.string == "ff", "Actual value: \(hex.string)")
+    }
+    
+    func testMultiByteInitialization() {
+        let bytes = [0, 185, 241].map { UInt8($0) }
+        let hex = Hex(bytes: bytes)
+        XCTAssert(hex.bytes == bytes)
+        XCTAssert(hex.string == "00b9f1")
     }
 }

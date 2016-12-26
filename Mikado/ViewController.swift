@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Hex(byte: UInt8(row)).string.uppercased()
+        return Hex(bytes: [UInt8(row)]).string.uppercased()
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

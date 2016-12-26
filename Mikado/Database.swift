@@ -10,7 +10,10 @@ import Foundation
 
 
 class UserDefaultsDB {
-    var userDefaults: UserDefaults!
+    fileprivate var userDefaults: UserDefaults
+    init(userDefaults: UserDefaults) {
+        self.userDefaults = userDefaults
+    }
     
     subscript(key: String) -> Any? {
         get {

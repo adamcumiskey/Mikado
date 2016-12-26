@@ -14,10 +14,11 @@ let defaultColorHex = "FFFFFF"
 class ViewController: UIViewController {
     @IBOutlet weak var colorPicker: UIPickerView!
     
-    
-    var userDefaultsDB: UserDefaultsDB!
+    var userDefaultsDB: UserDefaultsDB
     
     init() {
+        // Create the database
+        userDefaultsDB = UserDefaultsDB(userDefaults: MikadoApp.userDefaults)
         super.init(nibName: "ViewController", bundle: nil)
     }
     
@@ -32,26 +33,26 @@ class ViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Random", style: .plain, target: self, action: #selector(random))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
         
-        // Create the database
-        userDefaultsDB = UserDefaultsDB(userDefaults: MikadoApp.userDefaults)
-        
         // Load the color from the database
+        // or set it to the default
         if let hexString = self.hexString {
             self.hexString = hexString
         } else {
-            // Default to white if a color isn't set
             self.hexString = defaultColorHex
         }
     }
     
+    /// Set the color back to the default
     func reset() {
         self.hexString = defaultColorHex
     }
     
+    /// Randomize the color
     func random() {
         self.hexString = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) }).string
     }
 
+    ///
     var hexString: String? {
         get {
             return userDefaultsDB[backgroundColorKey] as? String

@@ -10,8 +10,6 @@ import UIKit
 
 
 class MikadoApp {
-    static var userDefaults: UserDefaults!
-    
     var window: UIWindow
     init(window: UIWindow) {
         self.window = window

@@ -21,17 +21,16 @@ class ViewController: UIViewController {
     var userDefaultsDB: UserDefaultsDB
     
     var hex: Hex? {
+        // Get the current Hex value from the database
         get {
             guard let hexString = userDefaultsDB[backgroundColorKey] as? String else { return nil }
             return Hex(string: hexString)
         }
+        // Save the new hex value to the database and update the UI
         set {
             guard let newHex = newValue else { return }
-            
-            // Save the color to the database
             userDefaultsDB[backgroundColorKey] = newHex.string
             
-            // Update the UI
             UIView.animate(withDuration: 0.4) {
                 self.view.backgroundColor = UIColor(hexString: newHex.string)
             }
@@ -99,6 +98,7 @@ class ViewController: UIViewController {
         pickerViewDataSource = dataSource
     }
     
+    /// Toggle between the WholeByte and HalfByte picker view styles
     func togglePickerStyle() {
         let newDataSource: HexPickerViewDataSource
         if let _ = pickerViewDataSource as? HalfByteHexPickerViewDataSource {

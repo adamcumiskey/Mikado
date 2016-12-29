@@ -62,4 +62,26 @@ class HexTests: XCTestCase {
         XCTAssert(hex.bytes == bytes)
         XCTAssert(hex.string == "00b9f1")
     }
+    
+    func testCanHalve() {
+        let a = UInt8(255)
+        let (a1, a2) = a.halve()
+        XCTAssert(a1 == 0xF)
+        XCTAssert(a2 == 0xF)
+        
+        let b = UInt8(0)
+        let (b1, b2) = b.halve()
+        XCTAssert(b1 == 0x00)
+        XCTAssert(b2 == 0x00)
+        
+        let c = UInt8(5)
+        let (c1, c2) = c.halve()
+        XCTAssert(c1 == 0x00)
+        XCTAssert(c2 == 0x05)
+        
+        let d = UInt8(42)
+        let (d1, d2) = d.halve()
+        XCTAssert(d1 == 0x02)
+        XCTAssert(d2 == 0x0A)
+    }
 }

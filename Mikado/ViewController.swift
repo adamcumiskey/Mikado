@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         // Configure to use the global store
         userDefaultsDB.userDefaults = MikadoApp.userDefaults
         
-        pickerViewDataSource = WholeByteHexPickerViewDataSource()
+        pickerViewDataSource = HalfByteHexPickerViewDataSource()
         
         super.init(nibName: "ViewController", bundle: nil)
     }
@@ -42,43 +42,47 @@ class ViewController: UIViewController {
         colorPicker.dataSource = pickerViewDataSource
         colorPicker.delegate = pickerViewDataSource
         
+        // Callback for new hex colors from the picker view delegate
+        pickerViewDataSource.didSelectHex = { [weak self] hex in
+            self?.hex = hex
+        }
+        
         // Load the color from the database
         // or set it to the default
-        if let hexString = self.hexString {
-            self.hexString = hexString
+        if let hexString = self.hex {
+            self.hex = hexString
         } else {
-            self.hexString = defaultColorHex
+            reset()
         }
     }
     
     /// Set the color back to the default
     func reset() {
-        self.hexString = defaultColorHex
+        self.hex = Hex(string: defaultColorHex)
     }
     
     /// Randomize the color
     @IBAction func random(sender: UIButton) {
-        self.hexString = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) }).string
+        self.hex = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) })
     }
 
-    ///
-    var hexString: String? {
+    var hex: Hex? {
         get {
-            return userDefaultsDB[backgroundColorKey] as? String
+            guard let hexString = userDefaultsDB[backgroundColorKey] as? String else { return nil }
+            return Hex(string: hexString)
         }
         set {
-            guard let newHexString = newValue else { return }
+            guard let newHex = newValue else { return }
             
             // Save the color to the database
-            userDefaultsDB[backgroundColorKey] = newHexString
+            userDefaultsDB[backgroundColorKey] = newHex.string
             
             // Update the UI
             UIView.animate(withDuration: 0.4) {
-                self.view.backgroundColor = UIColor(hexString: newHexString)
+                self.view.backgroundColor = UIColor(hexString: newHex.string)
             }
             
-            let hex = Hex(string: newHexString)
-            pickerViewDataSource.setHex(hex: hex, forColorPicker: colorPicker)
+            pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker)
         }
     }
 }

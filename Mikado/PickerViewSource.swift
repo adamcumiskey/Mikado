@@ -72,12 +72,12 @@ class HalfByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     var didSelectHex: ((Hex) -> Void)?
     
     func setHex(hex: Hex, forColorPicker colorPicker: UIPickerView) {
-        for i in 0..<(hex.bytes.count-1) {
+        for i in 0..<hex.bytes.count {
             let byte = hex.bytes[i]
-            let row1 = byte & 0xF0 >> 4
-            let row2 = byte & 0x0F
-            colorPicker.selectRow(Int(row1), inComponent: i, animated: true)
-            colorPicker.selectRow(Int(row2), inComponent: i+1, animated: true)
+            let (row1, row2) = byte.halve()
+            let n = i * 2
+            colorPicker.selectRow(Int(row1), inComponent: n, animated: true)
+            colorPicker.selectRow(Int(row2), inComponent: n+1, animated: true)
         }
     }
     
@@ -86,15 +86,13 @@ class HalfByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component % 2 == 0 {
-            return 6 // a-f
-        } else {
-            return 10 // 0-9
-        }
+            return 16 // a-f
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Hex(bytes: [UInt8(row)]).string.uppercased()
+        guard let char = Hex(bytes: [UInt8(row)]).string.characters.first else { return nil }
+        return "\(char)".uppercased()
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

@@ -27,3 +27,11 @@ struct Hex {
         self.string = bytes.reduce("") { $0 + String($1, radix: 16).padding(toLength: 2, withPad: "0", startingAt: 0) }
     }
 }
+
+
+extension UInt8 {
+    // Split a UInt8 into two equal 4 bit values
+    func halve() -> (UInt8, UInt8) {
+        return ((self & 0xF0) >> 4, self & 0x0F)
+    }
+}

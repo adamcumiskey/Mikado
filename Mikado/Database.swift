@@ -29,3 +29,15 @@ class UserDefaultsDB: Database {
         }
     }
 }
+
+class MemoryDB: Database {
+    private var data: [String: Any] = [:]
+    subscript(key: String) -> Any? {
+        get {
+            return data[key]
+        }
+        set {
+            data[key] = newValue
+        }
+    }
+}

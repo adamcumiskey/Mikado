@@ -8,16 +8,24 @@
 
 import UIKit
 
-let backgroundColorKey = "background_color"
-let defaultColorHex = "FFFFFF"
 
 class ViewController: UIViewController {
+    let backgroundColorKey = "background_color"
+    let defaultColorHex = "FFFFFF"
+    
     @IBOutlet weak var colorPicker: UIPickerView!
     
+    /// Persistent storage for the selected color
     var database: Database
+
+    /// The datasource for the colorPicker
+    var pickerViewDataSource: HexPickerViewDataSource
     
     init(database: Database) {
         self.database = database
+        
+        // Create a default dataSource
+        pickerViewDataSource = WholeByteHexPickerViewDataSource()
         
         super.init(nibName: "ViewController", bundle: nil)
     }
@@ -28,80 +36,106 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        title = "Mikado Colors"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Random", style: .plain, target: self, action: #selector(random))
+        // Configure the navigation item
+        title = "HEXES"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Style", style: .plain, target: self, action: #selector(togglePickerStyle))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
+
+        // Configure the datasource
+        configurePickerViewDataSource(dataSource: pickerViewDataSource)
         
         // Load the color from the database
         // or set it to the default
-        if let hexString = self.hexString {
-            self.hexString = hexString
+        if let hexString = self.hex {
+            self.hex = hexString
         } else {
-            self.hexString = defaultColorHex
+            reset()
         }
     }
     
+    var hex: Hex? {
+        // Get the current Hex value from the database
+        get {
+            guard let hexString = database[backgroundColorKey] as? String else { return nil }
+            return Hex(string: hexString)
+        }
+        // Save the new hex value to the database and update the UI
+        set {
+            if let newHex = newValue {
+                database[backgroundColorKey] = newHex.string
+                
+                UIView.animate(withDuration: 0.4) {
+                    self.view.backgroundColor = UIColor(hex: newHex)
+                }
+                pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker, animated: true)
+            } else {
+                reset()
+            }
+        }
+    }
+}
+
+
+// MARK: - Button Actions
+
+extension ViewController {
     /// Set the color back to the default
     func reset() {
-        self.hexString = defaultColorHex
+        self.hex = Hex(string: defaultColorHex)
     }
     
     /// Randomize the color
-    func random() {
-        self.hexString = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) }).string
-    }
-
-    ///
-    var hexString: String? {
-        get {
-            return database[backgroundColorKey] as? String
-        }
-        set {
-            guard let newHexString = newValue else { return }
-            
-            // Save the color to the database
-            database[backgroundColorKey] = newHexString
-            
-            // Update the UI
-            UIView.animate(withDuration: 0.23) {
-                self.view.backgroundColor = UIColor(hexString: newHexString)
-            }
-            
-            let hex = Hex(string: newHexString)
-            for i in 0..<hex.bytes.count {
-                colorPicker.selectRow(Int(hex.bytes[i]), inComponent: i, animated: true)
-            }
-        }
+    @IBAction func random(sender: UIButton) {
+        self.hex = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) })
     }
 }
 
 
-extension ViewController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Hex(bytes: [UInt8(row)]).string.uppercased()
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.hexString = hexStringFromPickerView(pickerView: pickerView)
-    }
-}
-
-extension ViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 256
-    }
-}
+// MARK: - PickerView 
 
 extension ViewController {
-    func hexStringFromPickerView(pickerView: UIPickerView) -> String {
-        let r = pickerView.delegate!.pickerView!(pickerView, titleForRow: pickerView.selectedRow(inComponent: 0), forComponent: 0)!
-        let g = pickerView.delegate!.pickerView!(pickerView, titleForRow: pickerView.selectedRow(inComponent: 1), forComponent: 1)!
-        let b = pickerView.delegate!.pickerView!(pickerView, titleForRow: pickerView.selectedRow(inComponent: 2), forComponent: 2)!
-        return r + g + b
+    /// Hook up a dataSource to the pickerView
+    func configurePickerViewDataSource(dataSource: HexPickerViewDataSource) {
+        // Set the datasource and delegate for the colorPicker
+        colorPicker.dataSource = dataSource
+        colorPicker.delegate = dataSource
+        
+        // Register callback for when the hex value changes from user input
+        dataSource.didSelectHex = { [weak self] hex in
+            self?.hex = hex
+        }
+        
+        // Assign to ivar to hold a strong reference
+        pickerViewDataSource = dataSource
+    }
+    
+    /// Toggle between the WholeByte and HalfByte picker view styles
+    func togglePickerStyle() {
+        let newDataSource: HexPickerViewDataSource
+        if let _ = pickerViewDataSource as? HalfByteHexPickerViewDataSource {
+            newDataSource = WholeByteHexPickerViewDataSource()
+        } else {
+            newDataSource = HalfByteHexPickerViewDataSource()
+        }
+        
+        UIView.animate(
+            withDuration: 0.15,
+            animations: {
+                self.colorPicker.alpha = 0.0
+            },
+            completion: { finished in
+                if finished == true {
+                    self.configurePickerViewDataSource(dataSource: newDataSource)
+                    self.colorPicker.reloadAllComponents()
+                    
+                    if let hex = self.hex {
+                        self.pickerViewDataSource.setHex(hex: hex, forColorPicker: self.colorPicker, animated: false)
+                    }
+                    UIView.animate(withDuration: 0.15) {
+                        self.colorPicker.alpha = 1.0
+                    }
+                }
+            }
+        )
     }
 }

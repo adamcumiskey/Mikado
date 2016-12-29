@@ -10,27 +10,33 @@ import XCTest
 @testable import Mikado
 
 class MikadoTests: XCTestCase {
+    var database: MemoryDB!
+    var hex: Hex = Hex(string: "00b9f1")!
+    var viewController: ViewController!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        database = MemoryDB()
+        database["background_color"] = hex.string
+        viewController = ViewController(database: database)
+        let _ = viewController.view // invoke viewDidLoad()
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testRestoreSavedColorOnLaunch() {
+        XCTAssertEqual(viewController.hex, hex)
+        XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: hex))
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testResetColor() {
+        viewController.reset()
+        XCTAssertNotEqual(viewController.hex, hex)
+        XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: Hex(string: "FFFFFF")!))
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testRandomColor() {
+        viewController.random(sender: UIButton())
+        XCTAssertNotEqual(viewController.hex, hex)
+        XCTAssertNotEqual(viewController.view.backgroundColor, UIColor(hex: hex))
     }
     
 }

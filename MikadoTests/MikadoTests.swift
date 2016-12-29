@@ -10,33 +10,40 @@ import XCTest
 @testable import Mikado
 
 class MikadoTests: XCTestCase {
+    let whiteHex = Hex(string: "FFFFFF")!
+    let blueHex: Hex = Hex(string: "00b9f1")!
+    
     var database: MemoryDB!
-    var hex: Hex = Hex(string: "00b9f1")!
     var viewController: ViewController!
     
     override func setUp() {
         super.setUp()
         database = MemoryDB()
-        database["background_color"] = hex.string
+        database["background_color"] = blueHex.string
         viewController = ViewController(database: database)
         let _ = viewController.view // invoke viewDidLoad()
     }
     
     func testRestoreSavedColorOnLaunch() {
-        XCTAssertEqual(viewController.hex, hex)
-        XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: hex))
+        XCTAssertEqual(viewController.hex, blueHex)
+        XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: blueHex))
     }
     
     func testResetColor() {
         viewController.reset()
-        XCTAssertNotEqual(viewController.hex, hex)
-        XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: Hex(string: "FFFFFF")!))
+        XCTAssertNotEqual(viewController.hex, blueHex)
+        XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: whiteHex))
     }
     
     func testRandomColor() {
         viewController.random(sender: UIButton())
-        XCTAssertNotEqual(viewController.hex, hex)
-        XCTAssertNotEqual(viewController.view.backgroundColor, UIColor(hex: hex))
+        XCTAssertNotEqual(viewController.hex, blueHex)
+        XCTAssertNotEqual(viewController.view.backgroundColor, UIColor(hex: blueHex))
     }
     
+    func testNilHexResetsToWhite() {
+        viewController.hex = nil
+        XCTAssertEqual(viewController.hex, whiteHex)
+        XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: whiteHex))
+    }
 }

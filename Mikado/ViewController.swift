@@ -11,7 +11,7 @@ import UIKit
 
 class ViewController: UIViewController {
     let backgroundColorKey = "background_color"
-    let defaultColorHex = "FFFFFF"
+    let defaultHex = Hex(string: "FFFFFF")!
     
     @IBOutlet weak var colorPicker: UIPickerView!
     
@@ -46,10 +46,10 @@ class ViewController: UIViewController {
         
         // Load the color from the database
         // or set it to the default
-        if let hexString = self.hex {
-            self.hex = hexString
+        if let savedHex = self.hex {
+            self.hex = savedHex
         } else {
-            reset()
+            self.hex = defaultHex
         }
     }
     
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
                 }
                 pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker, animated: true)
             } else {
-                reset()
+                self.hex = defaultHex
             }
         }
     }
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
 extension ViewController {
     /// Set the color back to the default
     func reset() {
-        self.hex = Hex(string: defaultColorHex)
+        self.hex = defaultHex
     }
     
     /// Randomize the color

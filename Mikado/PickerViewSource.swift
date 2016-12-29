@@ -8,24 +8,13 @@
 
 import UIKit
 
-protocol HexPickerViewSource: UIPickerViewDataSource  {
+protocol HexPickerViewDataSource: UIPickerViewDataSource  {
     var didSelectHexString: ((String) -> Void)? { get set }
     func hexStringFromPickerView(pickerView: UIPickerView) -> String
 }
 
-extension HexPickerViewSource where Self: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Hex(bytes: [UInt8(row)]).string.uppercased()
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let didSelectHexString = didSelectHexString else { return }
-        didSelectHexString(self.hexStringFromPickerView(pickerView: pickerView))
-    }
-}
 
-
-class WholeByteHexPickerViewSource: NSObject, HexPickerViewSource {
+class WholeByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     var didSelectHexString: ((String) -> Void)?
 
     func hexStringFromPickerView(pickerView: UIPickerView) -> String {
@@ -45,7 +34,7 @@ class WholeByteHexPickerViewSource: NSObject, HexPickerViewSource {
 }
 
 
-class HalfByteHexPickerViewSource: NSObject, HexPickerViewSource {
+class HalfByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     var didSelectHexString: ((String) -> Void)?
     
     func hexStringFromPickerView(pickerView: UIPickerView) -> String {

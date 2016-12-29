@@ -26,4 +26,9 @@ class MikadoApp {
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()
     }
+    
+    func style() {
+        let navigationBarAppearence = UINavigationBar.appearance()
+        navigationBarAppearence.tintColor = .black
+    }
 }

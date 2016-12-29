@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         let database = UserDefaultsDB(userDefaults: UserDefaults.standard)
         mikadoApp = MikadoApp(window: window, database: database)
+        mikadoApp.style()
         mikadoApp.launch()
         return true
     }

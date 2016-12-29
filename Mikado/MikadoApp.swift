@@ -10,6 +10,7 @@ import UIKit
 
 
 class MikadoApp {
+    // Global UserDefaults store
     static var userDefaults: UserDefaults!
     
     var window: UIWindow
@@ -20,15 +21,17 @@ class MikadoApp {
         MikadoApp.userDefaults = UserDefaults.standard
     }
     
+    /// Set appearence defaults
+    func style() {
+        let navigationBarAppearence = UINavigationBar.appearance()
+        navigationBarAppearence.tintColor = .black
+    }
+    
+    /// Load main view controller and present window
     func launch() {
         let viewController = ViewController()
         let navigationViewController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()
-    }
-    
-    func style() {
-        let navigationBarAppearence = UINavigationBar.appearance()
-        navigationBarAppearence.tintColor = .black
     }
 }

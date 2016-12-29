@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the window and launch the app
         let window = UIWindow(frame: UIScreen.main.bounds)
         mikadoApp = MikadoApp(window: window)
-        mikadoApp.style()
         mikadoApp.launch()
         return true
     }

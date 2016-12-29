@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="Mikado" customModuleProvider="target">
             <connections>
+                <outlet property="button" destination="28h-Wz-1Xt" id="C1m-Gy-F9G"/>
                 <outlet property="colorPicker" destination="kMI-JE-RbW" id="gLz-vc-xri"/>
                 <outlet property="view" destination="iN0-l3-epB" id="8nF-Lp-Uw4"/>
             </connections>

@@ -19,6 +19,7 @@
 		66C02D761E10604B00A19FB8 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D751E10604B00A19FB8 /* Hex.swift */; };
 		66C02D781E106AFA00A19FB8 /* HexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D771E106AFA00A19FB8 /* HexTests.swift */; };
 		66C02D7A1E109AED00A19FB8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D791E109AED00A19FB8 /* UIColor.swift */; };
+		66E5BA261E157C7600A582AB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E5BA251E157C7600A582AB /* Array.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		66C02D751E10604B00A19FB8 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
 		66C02D771E106AFA00A19FB8 /* HexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexTests.swift; sourceTree = "<group>"; };
 		66C02D791E109AED00A19FB8 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		66E5BA251E157C7600A582AB /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				66C02D6F1E1045E600A19FB8 /* Database.swift */,
 				66C02D751E10604B00A19FB8 /* Hex.swift */,
 				66C02D791E109AED00A19FB8 /* UIColor.swift */,
+				66E5BA251E157C7600A582AB /* Array.swift */,
 				66C02D541E10455300A19FB8 /* Assets.xcassets */,
 				66C02D561E10455300A19FB8 /* LaunchScreen.storyboard */,
 				66C02D591E10455300A19FB8 /* Info.plist */,
@@ -224,6 +227,7 @@
 				66C02D501E10455300A19FB8 /* ViewController.swift in Sources */,
 				66C02D701E1045E600A19FB8 /* Database.swift in Sources */,
 				66C02D761E10604B00A19FB8 /* Hex.swift in Sources */,
+				66E5BA261E157C7600A582AB /* Array.swift in Sources */,
 				660432BD1E14D71200EC2D12 /* PickerViewSource.swift in Sources */,
 				66C02D4E1E10455300A19FB8 /* AppDelegate.swift in Sources */,
 			);

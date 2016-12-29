@@ -9,9 +9,11 @@
 import UIKit
 
 let backgroundColorKey = "background_color"
-let defaultColorHex = "FFFFFF"
+let defaultColorHex = "000000"
 
 class ViewController: UIViewController {
+    @IBOutlet weak var button: UIButton!
+    
     @IBOutlet weak var colorPicker: UIPickerView!
     
     var userDefaultsDB: UserDefaultsDB
@@ -49,7 +51,10 @@ class ViewController: UIViewController {
         // Set the datasource for the color picker
         colorPicker.dataSource = pickerViewDataSource
         colorPicker.delegate = pickerViewDataSource
-
+        pickerViewDataSource.didSelectHex = { [weak self] hex in
+            self?.hex = hex
+        }
+        
         // Load the color from the database
         // or set it to the default
         if let hexString = self.hex {
@@ -117,6 +122,23 @@ class ViewController: UIViewController {
             }
             
             pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker, animated: true)
+            updateAppStyleIfNeededForHex(hex: newHex)
+        }
+    }
+}
+
+extension ViewController {
+    func updateAppStyleIfNeededForHex(hex: Hex) {
+        let average = hex.bytes.map { Int($0) }.average
+        print(average)
+        let isDark = average < 100
+        let textColor: UIColor = isDark ? .white : .black
+        
+        UIView.animate(withDuration: 0.3) {
+            self.colorPicker.tintColor = textColor
+            self.button.setTitleColor(textColor, for: .normal)
+            self.navigationController?.navigationBar.tintColor = textColor
+            self.navigationController?.navigationBar.barStyle = isDark ? .blackTranslucent : .default
         }
     }
 }

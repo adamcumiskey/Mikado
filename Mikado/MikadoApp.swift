@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum AppStyle {
+    case light
+    case dark
+}
+
 
 class MikadoApp {
     static var userDefaults: UserDefaults!
@@ -27,8 +32,17 @@ class MikadoApp {
         window.makeKeyAndVisible()
     }
     
-    func style() {
+    static func setStyle(style: AppStyle) {
         let navigationBarAppearence = UINavigationBar.appearance()
-        navigationBarAppearence.tintColor = .black
+        let pickerViewAppearence = UIPickerView.appearance()
+        let buttonAppearence = UIButton.appearance()
+        switch style {
+        case .light:
+            navigationBarAppearence.barStyle = .default
+            navigationBarAppearence.tintColor = .black
+        case .dark:
+            navigationBarAppearence.barStyle = .blackTranslucent
+            navigationBarAppearence.tintColor = .white
+        }
     }
 }

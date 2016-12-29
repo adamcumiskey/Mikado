@@ -31,7 +31,8 @@ extension HexPickerViewDataSource {
             }
             rows.append(rowText)
         }
-        return Hex(string: rows.reduce("", +))
+        guard let hex = Hex(string: rows.reduce("", +)) else { throw HexError.invalidHexString }
+        return hex
     }
 }
 
@@ -92,7 +93,6 @@ class HalfByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         guard let char = Hex(bytes: [UInt8(row)]).string.characters.first else { return nil }
         return "\(char)".uppercased()
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

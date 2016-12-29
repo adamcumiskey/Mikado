@@ -23,23 +23,29 @@ class HexTests: XCTestCase {
     
     func testMinHexStringInitialization() {
         let string = "00"
-        let hex = Hex(string: string)
+        let hex = Hex(string: string)!
         XCTAssert(hex.string == string)
         XCTAssert(hex.bytes == [0])
     }
     
     func testMaxHexStringInitialization() {
         let string = "FF"
-        let hex = Hex(string: string)
+        let hex = Hex(string: string)!
         XCTAssert(hex.string == string)
         XCTAssert(hex.bytes == [255])
     }
     
     func testMultiHexStringInitialization() {
         let string = "00b9f1"
-        let hex = Hex(string: string)
+        let hex = Hex(string: string)!
         XCTAssert(hex.string == string)
         XCTAssert(hex.bytes == [0, 185, 241])
+    }
+    
+    func testInvalidHexStringInitialization() {
+        let string = "z0312h"
+        let hex = Hex(string: string)
+        XCTAssertNil(hex, "Initializing with an invalid string should throw error")
     }
     
     func testMinSingleByteInitialization() {

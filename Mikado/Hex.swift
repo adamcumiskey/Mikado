@@ -8,12 +8,16 @@
 
 import Foundation
 
+enum HexError: Error {
+    case invalidHexString
+}
 
 struct Hex {
     var string: String
     var bytes: [UInt8]
     
-    init(string: String) {
+    init?(string: String) {
+        guard Hex.validate(string: string) else { return nil }
         self.string = string
         
         let chars = Array(string.characters)
@@ -25,6 +29,13 @@ struct Hex {
     init(bytes: [UInt8]) {
         self.bytes = bytes
         self.string = bytes.reduce("") { $0 + String($1, radix: 16).padding(toLength: 2, withPad: "0", startingAt: 0) }
+    }
+}
+
+extension Hex {
+    static func validate(string: String) -> Bool {
+        let hexCharacterSet = CharacterSet(charactersIn: "0123456789abcdef")
+        return string.lowercased().rangeOfCharacter(from: hexCharacterSet.inverted) == nil
     }
 }
 

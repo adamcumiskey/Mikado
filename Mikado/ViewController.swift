@@ -32,8 +32,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        title = "Mikado Colors"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Random", style: .plain, target: self, action: #selector(random))
+        title = "HEXES"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
         
         // Load the color from the database
@@ -51,7 +50,7 @@ class ViewController: UIViewController {
     }
     
     /// Randomize the color
-    func random() {
+    @IBAction func random(sender: UIButton) {
         self.hexString = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) }).string
     }
 
@@ -67,7 +66,7 @@ class ViewController: UIViewController {
             userDefaultsDB[backgroundColorKey] = newHexString
             
             // Update the UI
-            UIView.animate(withDuration: 0.23) {
+            UIView.animate(withDuration: 0.4) {
                 self.view.backgroundColor = UIColor(hexString: newHexString)
             }
             

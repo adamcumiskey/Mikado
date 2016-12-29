@@ -46,20 +46,24 @@
                         <blurEffect style="prominent"/>
                     </vibrancyEffect>
                 </visualEffectView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miG-NG-LEn">
-                    <rect key="frame" x="159.5" y="277" width="56" height="112"/>
-                    <fontDescription key="fontDescription" name="Arial-BoldItalicMT" family="Arial" pointSize="100"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="28h-Wz-1Xt">
+                    <rect key="frame" x="154" y="270.5" width="67" height="125"/>
+                    <fontDescription key="fontDescription" name="Baskerville-BoldItalic" family="Baskerville" pointSize="100"/>
+                    <state key="normal" title="#">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="randomWithSender:" destination="-1" eventType="touchUpInside" id="tyt-ep-Qh6"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="miG-NG-LEn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="250" id="G2M-Md-4wD"/>
+                <constraint firstItem="kMI-JE-RbW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="28h-Wz-1Xt" secondAttribute="bottom" priority="750" constant="20" id="67c-zp-rla"/>
+                <constraint firstItem="28h-Wz-1Xt" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="E7H-AU-dg4"/>
                 <constraint firstAttribute="trailing" secondItem="XT7-ej-6a0" secondAttribute="trailing" id="G3m-8Q-7iL"/>
+                <constraint firstItem="28h-Wz-1Xt" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="250" id="HWC-l3-M7z"/>
                 <constraint firstAttribute="bottom" secondItem="XT7-ej-6a0" secondAttribute="bottom" id="Ts7-Dd-zcp"/>
-                <constraint firstItem="kMI-JE-RbW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="miG-NG-LEn" secondAttribute="bottom" priority="750" constant="5" id="elv-lc-o1f"/>
-                <constraint firstItem="miG-NG-LEn" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="smX-4g-KSi"/>
                 <constraint firstItem="XT7-ej-6a0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wTX-Fr-kwv"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="54.5"/>

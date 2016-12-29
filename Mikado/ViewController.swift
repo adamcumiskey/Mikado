@@ -15,12 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var colorPicker: UIPickerView!
     
     var userDefaultsDB: UserDefaultsDB
+    var pickerViewDataSource: HexPickerViewDataSource
     
     init() {
         // Create the database
         userDefaultsDB = UserDefaultsDB()
         // Configure to use the global store
         userDefaultsDB.userDefaults = MikadoApp.userDefaults
+        
+        pickerViewDataSource = WholeByteHexPickerViewDataSource()
         
         super.init(nibName: "ViewController", bundle: nil)
     }
@@ -34,6 +37,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         title = "HEXES"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
+        
+        // Set the datasource for the color picker
+        colorPicker.dataSource = pickerViewDataSource
+        colorPicker.delegate = pickerViewDataSource
         
         // Load the color from the database
         // or set it to the default
@@ -71,39 +78,7 @@ class ViewController: UIViewController {
             }
             
             let hex = Hex(string: newHexString)
-            for i in 0..<hex.bytes.count {
-                colorPicker.selectRow(Int(hex.bytes[i]), inComponent: i, animated: true)
-            }
+            pickerViewDataSource.setHex(hex: hex, forColorPicker: colorPicker)
         }
-    }
-}
-
-
-extension ViewController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Hex(bytes: [UInt8(row)]).string.uppercased()
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.hexString = hexStringFromPickerView(pickerView: pickerView)
-    }
-}
-
-extension ViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 256
-    }
-}
-
-extension ViewController {
-    func hexStringFromPickerView(pickerView: UIPickerView) -> String {
-        let r = pickerView.delegate!.pickerView!(pickerView, titleForRow: pickerView.selectedRow(inComponent: 0), forComponent: 0)!
-        let g = pickerView.delegate!.pickerView!(pickerView, titleForRow: pickerView.selectedRow(inComponent: 1), forComponent: 1)!
-        let b = pickerView.delegate!.pickerView!(pickerView, titleForRow: pickerView.selectedRow(inComponent: 2), forComponent: 2)!
-        return r + g + b
     }
 }

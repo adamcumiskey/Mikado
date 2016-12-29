@@ -8,9 +8,6 @@
 
 import Foundation
 
-enum HexError: Error {
-    case invalidHexString
-}
 
 struct Hex {
     var string: String
@@ -22,20 +19,29 @@ struct Hex {
         
         let chars = Array(string.characters)
         self.bytes = stride(from: 0, to: chars.count, by: 2).map {
-            return UInt8(String(chars[$0..<min($0+2, chars.count)]), radix: 16) ?? 0
+            return UInt8(String(chars[$0..<min($0+2,chars.count)]), radix: 16) ?? 0
         }
     }
     
-    init(bytes: [UInt8]) {
+    init?(bytes: [UInt8]) {
+        guard Hex.validate(bytes: bytes) else { return nil }
         self.bytes = bytes
         self.string = bytes.reduce("") { $0 + String($1, radix: 16).padding(toLength: 2, withPad: "0", startingAt: 0) }
     }
 }
 
 extension Hex {
+    // Hex string must have even number of terms and contain only valid hexidecimal characters
     static func validate(string: String) -> Bool {
+        guard string.characters.count > 0 else { return false }
+        guard string.characters.count % 2 == 0 else { return false }
         let hexCharacterSet = CharacterSet(charactersIn: "0123456789abcdef")
         return string.lowercased().rangeOfCharacter(from: hexCharacterSet.inverted) == nil
+    }
+    
+    // Must have at least one byte
+    static func validate(bytes: [UInt8]) -> Bool {
+        return bytes.count > 0
     }
 }
 

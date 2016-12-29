@@ -11,16 +11,6 @@ import XCTest
 
 class HexTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testMinHexStringInitialization() {
         let string = "00"
         let hex = Hex(string: string)!
@@ -46,27 +36,41 @@ class HexTests: XCTestCase {
         let string = "z0312h"
         let hex = Hex(string: string)
         XCTAssertNil(hex, "Initializing with an invalid string should throw error")
+        
+        let emptyString = ""
+        let emptyHex = Hex(string: emptyString)
+        XCTAssertNil(emptyHex, "Should not be able to initialize hex with empty string")
+        
+        let oddString = "abc10"
+        let oddHex = Hex(string: oddString)
+        XCTAssertNil(oddHex, "Should not be able to initialize hex odd number of characters")
     }
     
     func testMinSingleByteInitialization() {
         let bytes = [UInt8(0)]
-        let hex = Hex(bytes: bytes)
+        let hex = Hex(bytes: bytes)!
         XCTAssert(hex.bytes == bytes)
         XCTAssert(hex.string == "00", "Actual value: \(hex.string)")
     }
     
     func testMaxSingleByteInitialization() {
         let bytes = [UInt8(255)]
-        let hex = Hex(bytes: bytes)
+        let hex = Hex(bytes: bytes)!
         XCTAssert(hex.bytes == bytes)
         XCTAssert(hex.string == "ff", "Actual value: \(hex.string)")
     }
     
     func testMultiByteInitialization() {
         let bytes = [0, 185, 241].map { UInt8($0) }
-        let hex = Hex(bytes: bytes)
+        let hex = Hex(bytes: bytes)!
         XCTAssert(hex.bytes == bytes)
         XCTAssert(hex.string == "00b9f1")
+    }
+    
+    func testInvalidByteInitialization() {
+        let bytes = [UInt8]()
+        let hex = Hex(bytes: bytes)
+        XCTAssertNil(hex, "Should not be able to initialize Hex empty bytes")
     }
     
     func testCanHalve() {

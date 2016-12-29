@@ -12,6 +12,7 @@ import UIKit
 enum HexPickerViewDataSourceError: Error {
     case invalidDelegate
     case missingRow
+    case invalidHexString
 }
 
 protocol HexPickerViewDataSource: UIPickerViewDataSource, UIPickerViewDelegate  {
@@ -31,7 +32,7 @@ extension HexPickerViewDataSource {
             }
             rows.append(rowText)
         }
-        guard let hex = Hex(string: rows.reduce("", +)) else { throw HexError.invalidHexString }
+        guard let hex = Hex(string: rows.reduce("", +)) else { throw HexPickerViewDataSourceError.invalidHexString }
         return hex
     }
 }
@@ -56,7 +57,7 @@ class WholeByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Hex(bytes: [UInt8(row)]).string.uppercased()
+        return Hex(bytes: [UInt8(row)])?.string.uppercased()
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -87,11 +88,11 @@ class HalfByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return 16 // a-f
+        return 16
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let char = Hex(bytes: [UInt8(row)]).string.characters.first else { return nil }
+        guard let char = Hex(bytes: [UInt8(row)])?.string.characters.first else { return nil }
         return "\(char)".uppercased()
     }
     

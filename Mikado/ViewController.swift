@@ -8,10 +8,11 @@
 
 import UIKit
 
-let backgroundColorKey = "background_color"
-let defaultColorHex = "FFFFFF"
 
 class ViewController: UIViewController {
+    let backgroundColorKey = "background_color"
+    let defaultColorHex = "FFFFFF"
+    
     @IBOutlet weak var colorPicker: UIPickerView!
     
     /// The datasource for the colorPicker
@@ -19,24 +20,6 @@ class ViewController: UIViewController {
     
     /// Persistent storage for the selected color
     var userDefaultsDB: UserDefaultsDB
-    
-    var hex: Hex? {
-        // Get the current Hex value from the database
-        get {
-            guard let hexString = userDefaultsDB[backgroundColorKey] as? String else { return nil }
-            return Hex(string: hexString)
-        }
-        // Save the new hex value to the database and update the UI
-        set {
-            guard let newHex = newValue else { return }
-            userDefaultsDB[backgroundColorKey] = newHex.string
-            
-            UIView.animate(withDuration: 0.4) {
-                self.view.backgroundColor = UIColor(hexString: newHex.string)
-            }
-            pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker, animated: true)
-        }
-    }
     
     init() {
         // Create the database
@@ -56,7 +39,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // Configure the navigation item
         title = "HEXES"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Style", style: .plain, target: self, action: #selector(togglePickerStyle))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
@@ -73,6 +56,29 @@ class ViewController: UIViewController {
         }
     }
     
+    var hex: Hex? {
+        // Get the current Hex value from the database
+        get {
+            guard let hexString = userDefaultsDB[backgroundColorKey] as? String else { return nil }
+            return Hex(string: hexString)
+        }
+        // Save the new hex value to the database and update the UI
+        set {
+            guard let newHex = newValue else { return }
+            userDefaultsDB[backgroundColorKey] = newHex.string
+            
+            UIView.animate(withDuration: 0.4) {
+                self.view.backgroundColor = UIColor(hexString: newHex.string)
+            }
+            pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker, animated: true)
+        }
+    }
+}
+
+
+// MARK: - Button Actions
+
+extension ViewController {
     /// Set the color back to the default
     func reset() {
         self.hex = Hex(string: defaultColorHex)
@@ -82,7 +88,12 @@ class ViewController: UIViewController {
     @IBAction func random(sender: UIButton) {
         self.hex = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) })
     }
-    
+}
+
+
+// MARK: - PickerView 
+
+extension ViewController {
     /// Hook up a dataSource to the pickerView
     func configurePickerViewDataSource(dataSource: HexPickerViewDataSource) {
         // Set the datasource and delegate for the colorPicker
@@ -116,7 +127,7 @@ class ViewController: UIViewController {
                 if finished == true {
                     self.configurePickerViewDataSource(dataSource: newDataSource)
                     self.colorPicker.reloadAllComponents()
-
+                    
                     if let hex = self.hex {
                         self.pickerViewDataSource.setHex(hex: hex, forColorPicker: self.colorPicker, animated: false)
                     }

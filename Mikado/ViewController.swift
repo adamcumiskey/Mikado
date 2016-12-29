@@ -64,13 +64,16 @@ class ViewController: UIViewController {
         }
         // Save the new hex value to the database and update the UI
         set {
-            guard let newHex = newValue else { return }
-            userDefaultsDB[backgroundColorKey] = newHex.string
-            
-            UIView.animate(withDuration: 0.4) {
-                self.view.backgroundColor = UIColor(hexString: newHex.string)
+            if let newHex = newValue {
+                userDefaultsDB[backgroundColorKey] = newHex.string
+                
+                UIView.animate(withDuration: 0.4) {
+                    self.view.backgroundColor = UIColor(hex: newHex)
+                }
+                pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker, animated: true)
+            } else {
+                reset()
             }
-            pickerViewDataSource.setHex(hex: newHex, forColorPicker: colorPicker, animated: true)
         }
     }
 }

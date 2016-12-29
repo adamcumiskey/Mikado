@@ -18,7 +18,6 @@
 		66C02D741E105EAF00A19FB8 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66C02D731E105EAF00A19FB8 /* ViewController.xib */; };
 		66C02D761E10604B00A19FB8 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D751E10604B00A19FB8 /* Hex.swift */; };
 		66C02D781E106AFA00A19FB8 /* HexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D771E106AFA00A19FB8 /* HexTests.swift */; };
-		66C02D7A1E109AED00A19FB8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D791E109AED00A19FB8 /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +46,6 @@
 		66C02D731E105EAF00A19FB8 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		66C02D751E10604B00A19FB8 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
 		66C02D771E106AFA00A19FB8 /* HexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexTests.swift; sourceTree = "<group>"; };
-		66C02D791E109AED00A19FB8 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +94,6 @@
 				660432BC1E14D71200EC2D12 /* PickerViewSource.swift */,
 				66C02D6F1E1045E600A19FB8 /* Database.swift */,
 				66C02D751E10604B00A19FB8 /* Hex.swift */,
-				66C02D791E109AED00A19FB8 /* UIColor.swift */,
 				66C02D541E10455300A19FB8 /* Assets.xcassets */,
 				66C02D561E10455300A19FB8 /* LaunchScreen.storyboard */,
 				66C02D591E10455300A19FB8 /* Info.plist */,
@@ -220,7 +217,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				66C02D6E1E10459D00A19FB8 /* MikadoApp.swift in Sources */,
-				66C02D7A1E109AED00A19FB8 /* UIColor.swift in Sources */,
 				66C02D501E10455300A19FB8 /* ViewController.swift in Sources */,
 				66C02D701E1045E600A19FB8 /* Database.swift in Sources */,
 				66C02D761E10604B00A19FB8 /* Hex.swift in Sources */,

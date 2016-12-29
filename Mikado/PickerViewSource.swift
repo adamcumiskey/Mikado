@@ -17,7 +17,7 @@ enum HexPickerViewDataSourceError: Error {
 protocol HexPickerViewDataSource: UIPickerViewDataSource, UIPickerViewDelegate  {
     var didSelectHex: ((Hex) -> Void)? { get set }
     func getHex(forColorPicker colorPicker: UIPickerView) throws -> Hex
-    func setHex(hex: Hex, forColorPicker colorPicker: UIPickerView)
+    func setHex(hex: Hex, forColorPicker colorPicker: UIPickerView, animated: Bool)
 }
 
 extension HexPickerViewDataSource {
@@ -39,10 +39,10 @@ extension HexPickerViewDataSource {
 class WholeByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     var didSelectHex: ((Hex) -> Void)?
     
-    func setHex(hex: Hex, forColorPicker colorPicker: UIPickerView) {
+    func setHex(hex: Hex, forColorPicker colorPicker: UIPickerView, animated: Bool) {
         for i in 0..<hex.bytes.count {
             let byte = hex.bytes[i]
-            colorPicker.selectRow(Int(byte), inComponent: i, animated: true)
+            colorPicker.selectRow(Int(byte), inComponent: i, animated: animated)
         }
     }
     
@@ -71,13 +71,13 @@ class WholeByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
 class HalfByteHexPickerViewDataSource: NSObject, HexPickerViewDataSource {
     var didSelectHex: ((Hex) -> Void)?
     
-    func setHex(hex: Hex, forColorPicker colorPicker: UIPickerView) {
+    func setHex(hex: Hex, forColorPicker colorPicker: UIPickerView, animated: Bool) {
         for i in 0..<hex.bytes.count {
             let byte = hex.bytes[i]
             let (row1, row2) = byte.halve()
             let n = i * 2
-            colorPicker.selectRow(Int(row1), inComponent: n, animated: true)
-            colorPicker.selectRow(Int(row2), inComponent: n+1, animated: true)
+            colorPicker.selectRow(Int(row1), inComponent: n, animated: animated)
+            colorPicker.selectRow(Int(row2), inComponent: n+1, animated: animated)
         }
     }
     

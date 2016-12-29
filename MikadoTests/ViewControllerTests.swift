@@ -9,7 +9,7 @@
 import XCTest
 @testable import Mikado
 
-class MikadoTests: XCTestCase {
+class ViewControllerTests: XCTestCase {
     let whiteHex = Hex(string: "FFFFFF")!
     let blueHex: Hex = Hex(string: "00b9f1")!
     
@@ -45,5 +45,16 @@ class MikadoTests: XCTestCase {
         viewController.hex = nil
         XCTAssertEqual(viewController.hex, whiteHex)
         XCTAssertEqual(viewController.view.backgroundColor, UIColor(hex: whiteHex))
+    }
+    
+    func testPickerViewConfiguration() {
+        let datasource = WholeByteHexPickerViewDataSource()
+        let oldDatasource = viewController.pickerViewDataSource
+        viewController.configurePickerViewDataSource(dataSource: datasource)
+        
+        XCTAssert(viewController.pickerViewDataSource !== oldDatasource)
+        XCTAssert(viewController.colorPicker.delegate! === datasource)
+        XCTAssert(viewController.colorPicker.dataSource! === datasource)
+        XCTAssertNotNil(datasource.didSelectHex)
     }
 }

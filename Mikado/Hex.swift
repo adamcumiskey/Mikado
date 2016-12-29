@@ -31,7 +31,7 @@ struct Hex: Equatable {
 }
 
 func ==(lhs: Hex, rhs: Hex) -> Bool {
-    return lhs.string == rhs.string
+    return lhs.string.caseInsensitiveCompare(rhs.string) == .orderedSame
 }
 
 extension Hex {

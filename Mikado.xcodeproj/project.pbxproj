@@ -12,12 +12,13 @@
 		66C02D501E10455300A19FB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D4F1E10455300A19FB8 /* ViewController.swift */; };
 		66C02D551E10455300A19FB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66C02D541E10455300A19FB8 /* Assets.xcassets */; };
 		66C02D581E10455300A19FB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C02D561E10455300A19FB8 /* LaunchScreen.storyboard */; };
-		66C02D631E10455300A19FB8 /* MikadoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D621E10455300A19FB8 /* MikadoTests.swift */; };
+		66C02D631E10455300A19FB8 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D621E10455300A19FB8 /* ViewControllerTests.swift */; };
 		66C02D6E1E10459D00A19FB8 /* MikadoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D6D1E10459D00A19FB8 /* MikadoApp.swift */; };
 		66C02D701E1045E600A19FB8 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D6F1E1045E600A19FB8 /* Database.swift */; };
 		66C02D741E105EAF00A19FB8 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66C02D731E105EAF00A19FB8 /* ViewController.xib */; };
 		66C02D761E10604B00A19FB8 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D751E10604B00A19FB8 /* Hex.swift */; };
 		66C02D781E106AFA00A19FB8 /* HexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C02D771E106AFA00A19FB8 /* HexTests.swift */; };
+		66E5BA281E15D0B800A582AB /* PickerViewSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E5BA271E15D0B800A582AB /* PickerViewSourceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,13 +40,14 @@
 		66C02D571E10455300A19FB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		66C02D591E10455300A19FB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66C02D5E1E10455300A19FB8 /* MikadoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MikadoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		66C02D621E10455300A19FB8 /* MikadoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikadoTests.swift; sourceTree = "<group>"; };
+		66C02D621E10455300A19FB8 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		66C02D641E10455300A19FB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66C02D6D1E10459D00A19FB8 /* MikadoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MikadoApp.swift; sourceTree = "<group>"; };
 		66C02D6F1E1045E600A19FB8 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		66C02D731E105EAF00A19FB8 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		66C02D751E10604B00A19FB8 /* Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
 		66C02D771E106AFA00A19FB8 /* HexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HexTests.swift; sourceTree = "<group>"; };
+		66E5BA271E15D0B800A582AB /* PickerViewSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewSourceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +106,9 @@
 		66C02D611E10455300A19FB8 /* MikadoTests */ = {
 			isa = PBXGroup;
 			children = (
-				66C02D621E10455300A19FB8 /* MikadoTests.swift */,
+				66C02D621E10455300A19FB8 /* ViewControllerTests.swift */,
 				66C02D771E106AFA00A19FB8 /* HexTests.swift */,
+				66E5BA271E15D0B800A582AB /* PickerViewSourceTests.swift */,
 				66C02D641E10455300A19FB8 /* Info.plist */,
 			);
 			path = MikadoTests;
@@ -229,7 +232,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66C02D631E10455300A19FB8 /* MikadoTests.swift in Sources */,
+				66E5BA281E15D0B800A582AB /* PickerViewSourceTests.swift in Sources */,
+				66C02D631E10455300A19FB8 /* ViewControllerTests.swift in Sources */,
 				66C02D781E106AFA00A19FB8 /* HexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

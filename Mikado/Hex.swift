@@ -19,7 +19,7 @@ struct Hex: Equatable {
         
         let chars = Array(string.characters)
         self.bytes = stride(from: 0, to: chars.count, by: 2).map {
-            return UInt8(String(chars[$0..<min($0+2,chars.count)]), radix: 16) ?? 0
+            return UInt8(String(chars[$0..<min($0+2,chars.count)]), radix: 16)!
         }
     }
     

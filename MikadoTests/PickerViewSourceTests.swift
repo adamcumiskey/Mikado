@@ -48,6 +48,7 @@ class HalfBytePickerViewSourceTests: XCTestCase {
     }
 }
 
+
 class WholeBytePickerViewSourceTests: XCTestCase {
     let blueHex: Hex = Hex(string: "00b9f1")!
     

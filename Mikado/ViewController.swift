@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Configure the navigation item
         title = "HEXES"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Style", style: .plain, target: self, action: #selector(togglePickerStyle))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Style", style: .plain, target: self, action: #selector(toggle))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(reset))
 
         // Configure the datasource
@@ -84,6 +84,10 @@ extension ViewController {
         self.hex = defaultHex
     }
     
+    func toggle() {
+        togglePickerStyle(animated: true)
+    }
+    
     /// Randomize the color
     @IBAction func random(sender: UIButton) {
         self.hex = Hex(bytes: [arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255)].map { UInt8($0) })
@@ -110,12 +114,22 @@ extension ViewController {
     }
     
     /// Toggle between the WholeByte and HalfByte picker view styles
-    func togglePickerStyle() {
-        let newDataSource: HexPickerViewDataSource
-        if let _ = pickerViewDataSource as? HalfByteHexPickerViewDataSource {
-            newDataSource = WholeByteHexPickerViewDataSource()
-        } else {
-            newDataSource = HalfByteHexPickerViewDataSource()
+    func togglePickerStyle(animated: Bool) {
+        let update = { [unowned self] in
+            let newDataSource: HexPickerViewDataSource
+            if let _ = self.pickerViewDataSource as? HalfByteHexPickerViewDataSource {
+                newDataSource = WholeByteHexPickerViewDataSource()
+            } else {
+                newDataSource = HalfByteHexPickerViewDataSource()
+            }
+            self.configurePickerViewDataSource(dataSource: newDataSource)
+            self.colorPicker.reloadAllComponents()
+        }
+        
+        // Early return to skip animations
+        if animated == false {
+            update()
+            return
         }
         
         UIView.animate(
@@ -125,9 +139,7 @@ extension ViewController {
             },
             completion: { finished in
                 if finished == true {
-                    self.configurePickerViewDataSource(dataSource: newDataSource)
-                    self.colorPicker.reloadAllComponents()
-                    
+                    update()
                     if let hex = self.hex {
                         self.pickerViewDataSource.setHex(hex: hex, forColorPicker: self.colorPicker, animated: false)
                     }
